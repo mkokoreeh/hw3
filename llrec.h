@@ -81,8 +81,19 @@ Node* llfilter(Node* head, Comp pred)
     //*********************************************
     // Provide your implementation below
     //*********************************************
-
-
+    if(head == nullptr){
+        return nullptr;
+    }
+    Node* temp = llfilter(head->next, pred); //recurse to the end of list
+    if(pred(head->val)){ //check if current node should be filtered
+        head->next = temp;
+        delete head; //delete it from the list, then move on
+        return temp;
+    }
+    else{ //if the current node does not fall under the filter requirement
+        head->next = temp; //keep it in the list and move on
+        return head;
+    }
 }
 
 #endif
