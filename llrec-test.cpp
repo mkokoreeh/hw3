@@ -66,9 +66,15 @@ void dealloc(Node* head)
 //   Add any helper functions or
 //   function object struct declarations
 // -----------------------------------------------
-
-
-
+struct Functor
+{
+    bool operator()(int x){
+        if((x % 2)==0){
+            return true;
+        }
+        return false;
+    }
+};
 
 
 int main(int argc, char* argv[])
@@ -81,10 +87,28 @@ int main(int argc, char* argv[])
     // -----------------------------------------------
     // Feel free to update any code below this point
     // -----------------------------------------------
-    Node* head = readList(argv[1]);
+    Node* head = readList(argv[1]);    
+    Functor pred;
     cout << "Original list: ";
     print(head);
-
+    Node* backup = readList(argv[1]);
+    Node* evens = llfilter(head,pred);
+    //Node* odds = llfilter(head, pred(2));
+    cout << "List Without Evens: ";
+    print(evens);
+    dealloc(evens);
+    //cout << "Odds: ";
+    //print(odds);
+    Node* s = nullptr;
+    Node* l = nullptr;
+    int pivot = 10;
+    llpivot(backup, s, l, pivot);
+    cout << "New Smaller List: ";
+    print(s);
+    cout << "New Larger List: ";
+    print(l);
+    dealloc(l);
+    dealloc(s);
     // Test out your linked list code
 
 
